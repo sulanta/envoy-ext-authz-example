@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: {{ .Values.authz.name }}
+  name: {{ .Values.authz.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - name: "{{ .Values.authz.ports.grpcPort }}"
+    protocol: TCP
+    port: {{ .Values.authz.ports.grpcPort }}
+    targetPort: {{ .Values.envoy_proxy.ports.grpcPort }}
+  selector:
+    app: {{ .Values.authz.name }}

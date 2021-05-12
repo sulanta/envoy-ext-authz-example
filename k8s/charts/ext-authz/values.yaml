@@ -1,0 +1,58 @@
+# Namespace
+namespace: default
+
+target: aws
+
+# Container images
+images:
+  tag: latest
+  repository: docker.io
+  pullPolicy: IfNotPresent
+  envoy_proxy:
+    repository: envoyproxy/envoy-alpine
+    tag: v1.17.1
+    pullPolicy: IfNotPresent
+  opa:
+    repository: openpolicyagent/opa
+    tag: 0.27.0-envoy
+    pullPolicy: IfNotPresent
+  categorization:
+    repository: 965468567385.dkr.ecr.eu-west-1.amazonaws.com
+    imageName: categorization
+    tag: 0.1.0
+    pullPolicy: IfNotPresent
+
+imageCredentials:
+  registry: 965468567385.dkr.ecr.eu-west-1.amazonaws.com
+  username: AWS
+  password: eyJwYXlsb2FkIjoiTVJ6cTRkZG14UDF3YnpwdndpZC8rZWk5empJYm8xTkpTUkxvcXV2ZUtLRmtka0QySVJXa0lXNmRwK2Q5Nk13Y080K0diejY0NEQ0VnFya2M4c3pzYTUycTNxTTUxb0VtczNEYkhzWTg1Y1VOYXNBVjdMaHVEVEJIcmoxVmQxditYVmZuSUcrRkdzVDluK3dDS3dzemtUY0NMSW5yNWlpZ1dLZmwxWFl3YTdlckFMZUR6QlYrLzJzNWpzc3E0bjJKMjlVeHlSZzd1bE5WVW5IeFp2R2JkbnRmNVVwVGhQRmRGeXFkc1BEVEJOaG14MGpEZ2JSTjdUYU9ZbytKandlcXE0U0psZExWQTBqR2ZZQndjNzZVVHM3ZHZCWTR0MDJWbmZ1ZS9INUxIU3BUUG1Venl0T0VLRWk3OTcvbTh4Q2ZwZnk3ajJqQ3g1VVJBOTkrOUgrcTR6bk5INWhhYnhaZlNnTHR5ZnhpZXJETW1uLzF3TzdkTkhpVENWbkZzSVhRMjFhbVNBNU01V0lBdkwyM2dhV0NXTmF0MGlIcTh3d2J3Q1FPaUM4bGV0TFQ3MHQ4NmtzdVhNWVNsRmtIamN3bTFVNVV2dDE4b1J0dVJJVWYzMXl1aEhnMXNZVVAxVWoxYWplOXFoclZaM0ZVUjdpNEEzSGNBbHVteWx6V29lZ0JWUWUzaVM0Q1ptTS85WWJ2NXZXZGtvQ0p6QzdVVWl1VTNhSGg0blJpa3V2WWtsWUJGUjJoNzIwZzU5MElpQjNmb1VhWDRNcHFVbHViYTYzYlV3U1hPZWkxRHV0bklZTE9JbjZRMHN0UGJQT2VxNGRaVmRTQkpvdWNIT0NKZllnYWc5cGNLRkx3dkdsL0haQXdiSDBINW9sV2VlVnVKNkdvK2N4TXZmbnlLdkFLaGxNOWRFUlBSaG1ycGJESGIxTGJpMHhVd3hSbE9RSU1OS21wUTNYSXp4Q3NZbDRIZGNQZjRJNlNkLzZtMHhvTWsrVUZUYnZYSmZkcXdlOVJ0c09tdVlHRnArbUEzVVRjKzhqMUVVMUJ2aGw1Nld2OHNaVnp2anBHR2ZpL0hwS3FyQWpSa1psOVUyN0pjdERSa2s5ZHo3R3hhd1ZEWm9QazNSdVRXbUZ4Sis2OTFJVlhJL1JmMThvUTBvZXNOWVFXOTFvWTlkR01PTlNhSGVyaW1UekNOdXRscEZySnRsaVNhOVVUWWxlRHpLQjl4eTBLOUVUdkRyL3QyWVNpblNveTdhUU1WQ2JkOFZ3M0pmTkFGLzEzbWUzc1N3VnNNY3lYTEsvLzNhUmFsT0w2akRBaDgrbVdrazBzQ1kzOFpFYUxNVEp2am4yemtsbENJcGxqaUZ0aTErVDM1TjA2VENsejBqRHhoWnRrdWNRMW9oZ2YrL29CWC9JVGVtOW1icUZWeXdVdkxsS3NkTHRZRktnang5elllMjFIYmQrdTJ4UkMiLCJkYXRha2V5IjoiQVFFQkFIaCtkUytCbE51ME54blh3b3diSUxzMTE1eWpkK0xOQVpoQkxac3VuT3hrM0FBQUFINHdmQVlKS29aSWh2Y05BUWNHb0c4d2JRSUJBREJvQmdrcWhraUc5dzBCQndFd0hnWUpZSVpJQVdVREJBRXVNQkVFREFROE1YaTlwTzdGamNKYkJBSUJFSUE3eUhSOVlIY0ZvRHFraTREOVBVUUpLTnhhQnRNRGhSY1g2SkkwdWJyd1dVdGV3MUprc3BvNVl1dC9QZG9KRGMreERGaUh4dHpSQ0xaTEQ5Yz0iLCJ2ZXJzaW9uIjoiMiIsInR5cGUiOiJEQVRBX0tFWSIsImV4cGlyYXRpb24iOjE2MjAxNTExNTN9
+  email: biju.kaimal@sophos.com
+  
+# Container specific settings
+envoy_proxy:
+  name: envoy-proxy
+  replicaCount: 1
+  restartPolicy: Always
+  lbType: nlb-ip
+  ports:
+    httpPort: 10000
+    containerHttpPort: 10000
+opa:
+  name: opa
+  replicaCount: 1
+  restartPolicy: Always
+  ports:
+    grpcPort: 9191
+    httpPort: 8181
+categorization:
+  name: categorization
+  replicaCount: 1
+  restartPolicy: Always
+  ports:
+    httpPort: 8080
+
+securityContext:
+  userId: 5000
+  groupId: 5000
+  nonRoot: true
+  supplementaryGroupId: 0

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.authz.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.authz.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.authz.name }}
+    spec:
+      containers:
+      - name: {{ .Values.authz.name }}
+        image: "{{ .Values.images.authz.repository }}:{{ .Values.images.authz.tag }}"
+        imagePullPolicy: {{ .Values.images.authz.pullPolicy }}
+      imagePullSecrets:
+      - name: registry-secret
